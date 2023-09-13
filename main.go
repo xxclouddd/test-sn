@@ -38,7 +38,10 @@ func signatureFn(params ...string) string {
 }
 
 func verifySignature(signature, timestamp, nonce, echostr string) (string, error) {
-	if signature != signatureFn(token, timestamp, nonce) {
+  fmt.Println("verifySignature:", signature, timestamp, nonce, echostr)
+  var signatureStr = signatureFn(token, timestamp, nonce)
+  fmt.Println("signatureStr:", signatureStr)
+	if signature != signatureStr {
 		return  "", errors.New("签名不正确")
 	}
 	return echostr, nil
@@ -54,6 +57,8 @@ func verifySignatureHandler(c *gin.Context) {
     })
 		return
 	}
+
+  fmt.Println("params:", params)
 
 	ret, err := verifySignature(
 		params.Signature, 
