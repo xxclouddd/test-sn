@@ -72,10 +72,11 @@ func verifySignatureHandler(c *gin.Context) {
 
 func main() {
   r := gin.Default()
-  r.GET("/api/public/wx/op", func(c *gin.Context) {
+  r.GET("/ping", func(c *gin.Context) {
     c.JSON(http.StatusOK, gin.H{
       "message": "pong",
     })
   })
+  r.GET("/api/public/wx/op", verifySignatureHandler)
   r.Run(":80")
 }
